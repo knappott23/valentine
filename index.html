@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
 
+<style>
+body {
+  margin: 0;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+#popup {
+  background: black;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 280px;
+  transition: all 0.5s ease;
+}
+
+#question {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+#yesBtn {
+  background: #7CFC00;
+}
+
+#noBtn {
+  background: #FF3B30;
+}
+
+.fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fullscreen #question {
+  font-size: 32px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="popup">
+  <div id="question">Would you be my Valentine? 💕</div>
+  <div class="buttons">
+    <button id="yesBtn">YES</button>
+    <button id="noBtn">NO</button>
+  </div>
+</div>
+
+<script>
+let noClicks = 0;
+let yesScale = 1;
+let noScale = 1;
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const popup = document.getElementById("popup");
+
+noBtn.addEventListener("click", () => {
+  noClicks++;
+
+  if (noClicks <= 3) {
+    noScale -= 0.15;
+    yesScale += 0.15;
+  } else {
+    yesScale += 0.25;
+  }
+
+  noBtn.style.transform = `scale(${Math.max(noScale, 0.3)})`;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  if (yesScale >= 5) {
+    popup.classList.add("fullscreen");
+    document.querySelector(".buttons").style.display = "none";
+  }
+});
+
+yesBtn.addEventListener("click", () => {
+  popup.classList.add("fullscreen");
+  document.querySelector(".buttons").style.display = "none";
+});
+</script>
+
+</body>
+</html>
