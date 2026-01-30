@@ -65,6 +65,42 @@ button {
 
 .fullscreen #question {
   font-size: 32px;
+} .celebrate-text {
+  color: #fff;
+  font-size: 28px;
+  margin-top: 20px;
+  animation: popIn 1s ease forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.heart, .sparkle {
+  position: fixed;
+  bottom: -20px;
+  pointer-events: none;
+  animation: floatUp 4s linear forwards;
+}
+
+.heart {
+  font-size: 26px;
+}
+
+.sparkle {
+  font-size: 20px;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.5);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -108,9 +144,42 @@ noBtn.addEventListener("click", () => {
 });
 
 yesBtn.addEventListener("click", () => {
+
   popup.classList.add("fullscreen");
   document.querySelector(".buttons").style.display = "none";
-});
+
+  // Celebration message
+  const message = document.createElement("div");
+  message.className = "celebrate-text";
+  message.innerText = "Yeey, she said YES 💕";
+  popup.appendChild(message);
+
+  // Hearts & sparkles
+  for (let i = 0; i < 20; i++) {
+    createHeart();
+    createSparkle();
+  }
+});function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+
+function createSparkle() {
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
+  sparkle.innerText = "✨";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.animationDuration = (2 + Math.random() * 2) + "s";
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => sparkle.remove(), 4000);
+}
 </script>
 
 </body>
